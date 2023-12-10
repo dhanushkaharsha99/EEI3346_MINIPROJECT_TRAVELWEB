@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <title>Pearl of the Indian Ocean</title>
+        <link rel="stylesheet" href="CSS\homestyle.css">
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+        
+    </head>
+    <body>
+        <header>
+            <a href="home.html" class="welcome" id="welcome">WELCOME TO<br>SRI LANKA</a>
+           
+        <nav class="navbar">
+            <a href="index.html">HOME</a>
+            <a href="travel.html">TRAVEL</a>
+            <a href="todo.html">TODO</a>
+            <a href="sitemap.html">SITEMAP</a>
+            <a href="aboutus.html">ABOUT US</a>
+            <a href="contactus.html">CONTACT US</a>
+        </nav>
+    </header>
+    <div id="app" class="container">
+        <h1 style="text-align: center; color: rgb(75, 111, 122); font-size:50px; margin: 5%;">
+            Todo List
+        </h1>
+
+        <div v-if="isEditing">
+            <input type="text" v-model="todo">
+            <input type="submit" value="Add" @click="store">
+        </div>
+        <div v-else>
+            <input type="text" v-model="todo">
+            <input type="submit" value="Update" @click="update">
+        </div>
+
+        <ol>
+            <li v-for="(todo, index) in todos">
+                {{ todo }}
+                <button @click="edit(index, todo)">Edit</button>
+                <button @click="remove(index)">Delete</button>
+            </li>
+        </ol>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            
+            data: {
+                isEditing: false,
+                todo: '',
+                todos: [],
+                selectedTodo: null
+            },
+            
+            methods: {
+                store() {
+                    this.todos.push(this.todo)
+                    this.todo = ''
+                },
+
+                remove(index) {
+                    this.todos.splice(index, 1)
+                },
+
+                update() {
+                    this.todos.splice(this.selectedIndex, 1, this.todo)
+                    this.todo = ''
+                    this.isEditing = false
+                },
+
+                edit(index, todo) {
+                    this.isEditing = true
+                    this.todo = todo
+                    this.selectedIndex = index
+                }
+            }
+        })
+    </script>
+   
+
+         
+
+     
+    </body>
+</html>
